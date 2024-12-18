@@ -1,0 +1,104 @@
+name: Django CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    env:
+      DJANGO_SECRET_KEY: ${{ secrets.DJANGO_SECRET_KEY }}
+      DJANGO_DEBUG: ${{ secrets.DJANGO_DEBUG }}
+      DB_NAME: ${{ secrets.DB_NAME }}
+      DB_USER: ${{ secrets.DB_USER }}
+      DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+      DB_HOST: ${{ secrets.DB_HOST }}
+      DB_PORT: ${{ secrets.DB_PORT }}
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v3
+      with:
+        python-version: '3.12'
+
+    - name: Install dependencies with pip
+      run: |
+        pip install -r requirements.txt
+        pip install python-dotenv
+
+    - name: Run tests
+      run: |
+        python manage.py test
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: test
+    env:
+      DJANGO_SECRET_KEY: ${{ secrets.DJANGO_SECRET_KEY }}
+      DJANGO_DEBUG: ${{ secrets.DJANGO_DEBUG }}
+      DB_NAME: ${{ secrets.DB_NAME }}
+      DB_USER: ${{ secrets.DB_USER }}
+      DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+      DB_HOST: ${{ secrets.DB_HOST }}
+      DB_PORT: ${{ secrets.DB_PORT }}
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Deploy to server through Bastion Host
+      shell: bash -l {0}
+      env:
+        BASTION_HOST: ${{ secrets.BASTION_HOST }}
+        BASTION_USER: ${{ secrets.BASTION_USER }}
+        BASTION_SSH_KEY: ${{ secrets.BASTION_SSH_KEY }}
+        SERVER_HOST: ${{ secrets.SERVER_HOST }}
+        SERVER_USER: ${{ secrets.SERVER_USER }}
+        SERVER_SSH_KEY: ${{ secrets.SERVER_SSH_KEY }}
+      run: |
+        # Bastion SSH 키를 임시 파일로 저장
+        echo "${BASTION_SSH_KEY}" > bastion_key.pem
+        chmod 600 bastion_key.pem
+
+        # 서버 SSH 키를 임시 파일로 저장
+        echo "${SERVER_SSH_KEY}" > server_key.pem
+        chmod 600 server_key.pem
+        
+        # ~/.ssh 디렉터리 생성
+        mkdir -p ~/.ssh
+        
+        # Host key checking을 피하기 위해 known_hosts 파일을 업데이트
+        ssh-keyscan -H ${BASTION_HOST} >> ~/.ssh/known_hosts || true
+        ssh-keyscan -H ${SERVER_HOST} >> ~/.ssh/known_hosts || true
+        
+        # Bastion을 통해 서버에 연결하여 명령어 실행
+        ssh -i bastion_key.pem -o "StrictHostKeyChecking=no" -o "ProxyCommand=ssh -i bastion_key.pem -W %h:%p ${BASTION_USER}@${BASTION_HOST}" -i server_key.pem ${SERVER_USER}@${SERVER_HOST} << 'EOF'
+        cd /home/ubuntu/NewbStock_Server
+        git config --global --add safe.directory /home/ubuntu/NewbStock_Server
+        git pull origin main
+        
+        # Conda 환경 활성화
+        source ~/miniconda3/etc/profile.d/conda.sh
+        conda activate newbstock
+        
+        # 필요한 패키지 설치 및 마이그레이션 수행
+        conda install --file requirements.txt -y
+        pip install -r requirements.txt
+        python manage.py migrate
+        
+        # 서비스 재시작
+        sudo systemctl restart gunicorn
+        sudo systemctl restart nginx
+        EOF
+
+    - name: Clean up SSH keys
+      run: |
+        rm -f bastion_key.pem server_key.pem

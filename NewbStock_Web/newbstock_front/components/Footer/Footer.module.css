@@ -1,0 +1,26 @@
+@charset "utf-8";
+
+.footer {
+    margin-top: auto;
+    padding: 12px 20px;
+    background-color: #111;
+    text-align: center;
+    font-size: 14px;
+    line-height: 20px;
+    color: #999;
+}
+.title {
+    font-size: 24px;
+    line-height: 28px;
+}
+.name_list {
+    display: flex;
+    justify-content: center;
+    font-weight: 500;
+}
+.name {
+    margin-left: 4px;
+}
+.desc {
+    margin-top: 4px;
+}

@@ -1,0 +1,43 @@
+@charset "utf-8";
+
+.sidebar {
+    position: fixed;
+    width: 150px;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    background-color: #2d2d35;
+    padding-top: 90px;
+    overflow-y: auto;
+    z-index: 1000;
+}
+
+.imageContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.service_link {
+    position: relative;
+    display: block;
+    padding: 30px 45px;
+}
+.service_link + .service_link {
+    padding-top: 31px;
+}
+.service_link + .service_link:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 30px;
+    right: 30px;
+    height: 1px;
+    background-color: #fff;
+    cursor:default;
+}
+.sidebarImage {
+    width: 100%;
+    height: auto;
+    line-height: 1px;
+    vertical-align: top;
+}
