@@ -1,0 +1,35 @@
+@charset "utf-8";
+
+.commonlayer {
+    position: relative;
+    height: 100%;
+    padding: 90px 0 0 150px;
+    background-color: #202026; /* 전체 배경 색 */
+}
+
+.innerwrapper {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    margin: 0 auto;
+    background-color: #202026; /* 내용물의 배경 색 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.contentslayer {
+    padding: 20px 20px 60px;
+    background-color: #202026; /* 콘텐츠 배경 색 */
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background-color: #1f1f1f;
+}
+.wrap {
+    display: flex;
+}
+.content {
+    flex: 1;
+}

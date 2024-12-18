@@ -1,0 +1,69 @@
+/* 차트 관련 스타일 */
+.chart_container {
+    width: 100%; /* 차트가 부모 요소의 너비를 가득 채우도록 설정 */
+    padding: 20px; /* 차트 주변의 여백 */
+    background-color: #2a2a2a; /* 차트 컨테이너의 배경색 */
+    border-radius: 8px; /* 부드러운 모서리 */
+    margin-bottom: 20px; /* 아래 요소와의 간격 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 약간의 그림자 효과 추가 */
+    box-sizing: border-box; /* 패딩과 테두리를 포함한 너비 계산 */
+    color: #ffffff; /* 차트 컨테이너 내부의 텍스트를 흰색으로 설정 */
+}
+
+.chart_title {
+    font-size: 1.5em; /* 제목 크기를 약간 더 크게 설정 */
+    color: #ffffff; /* 제목 색상을 흰색으로 설정 */
+    margin-bottom: 15px; /* 아래 간격을 약간 더 크게 설정 */
+    text-align: center;
+    font-weight: bold; /* 제목을 강조 */
+}
+
+.chart_legend {
+    text-align: center;
+    color: #d0d0d0; /* 범례의 색상을 밝은 회색으로 설정 */
+    font-size: 0.9em; /* 범례의 크기를 약간 더 작게 설정 */
+    margin-top: 10px; /* 범례와 차트 간의 간격 설정 */
+}
+
+/* 차트 리스트 (전체 리스트를 감싸는 컨테이너) */
+.chart_list {
+    list-style: none; /* 불릿 포인트 제거 */
+    padding: 0; /* 기본 패딩 제거 */
+    margin: 0; /* 기본 마진 제거 */
+    display: flex; /* 플렉스 박스를 사용해 아이템 정렬 */
+    flex-direction: column; /* 수직 정렬 */
+    gap: 20px; /* 차트 사이의 간격 */
+    color: #ffffff; /* 리스트 내 텍스트 색상을 흰색으로 설정 */
+}
+
+.chart_list .item {
+    flex: 1; /* 아이템이 남은 공간을 채우도록 설정 */
+    display: flex; /* 플렉스 박스로 컨테이너 설정 */
+    flex-direction: column; /* 차트와 관련된 컨텐츠를 수직으로 정렬 */
+    align-items: center; /* 중앙 정렬 */
+    color: #ffffff; /* 아이템 내 텍스트 색상을 흰색으로 설정 */
+}
+
+.chart {
+    width: 100%; /* 차트가 부모 요소의 전체 너비를 차지하도록 설정 */
+    height: 400px; /* 차트의 기본 높이 설정 */
+    max-width: 1000px; /* 차트의 최대 너비 설정 */
+}
+
+@media (max-width: 768px) {
+    .chart_container {
+        padding: 15px; /* 작은 화면에서 패딩을 줄임 */
+    }
+
+    .chart_title {
+        font-size: 1.3em; /* 작은 화면에서 제목 크기를 줄임 */
+    }
+
+    .chart_legend {
+        font-size: 0.8em; /* 작은 화면에서 범례 크기를 줄임 */
+    }
+
+    .chart {
+        height: 300px; /* 작은 화면에서 차트 높이 줄임 */
+    }
+}

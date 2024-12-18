@@ -1,0 +1,102 @@
+@charset "utf-8";
+
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    margin: 0 auto;
+    padding: 20px;
+    width: 60%;
+}
+
+.container h1{
+    font-size: 30px;
+    font-weight: bold;
+    margin-bottom: 40px;
+    text-align: center;
+    color: #ffffff;
+    margin-bottom: 50px;
+}
+
+
+
+.resultcontainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 70%;
+    margin: 0 auto;
+}
+
+.resultcontainer h3{
+    align-items: flex-start;
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 40px;
+    text-align: center;
+    color: #ffffff;
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+.resultcontainer button{
+    width: 90%;
+    padding: 10px;
+    background-color: #667ec4;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 30px;
+
+}
+
+.resultcontainer p {
+    font-size: 20px;
+    line-height: 1.5;
+    font-weight: bold;
+    padding: 10px;
+}
+
+.resultcontainer p.warning {
+    font-size: 15px;
+    color: gray;
+    text-align: right;
+    font-weight: normal; 
+    margin-top: 10px;
+    margin-right: 0px;
+    padding: 0;  
+}
+
+
+.result {
+    width: 100%;
+    display: flex;
+    justify-content: space-between; /* r div들을 수평으로 나열하고 간격을 균등하게 */
+    margin-top: 20px;
+}
+
+.r {
+    flex: 1; /* 각 r div가 동일한 넓이를 차지하도록 */
+    width:33%;
+    margin: 0 10px; /* 각 r div 사이에 간격을 추가 */
+    padding: 5px;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.resultTitle {
+    text-align: center;
+    font-weight: bold;
+    color: #ffffff;
+    margin-bottom: 10px; /* 제목과 값 사이의 간격 추가 */
+}
+
+.resultValue {
+    text-align: center;
+    font-size: 1.2em; /* 결과 값을 더 강조 */
+    color: #d0d0d0;
+}
+
