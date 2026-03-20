@@ -59,27 +59,6 @@ Web UI
 - **Infra**: Docker Compose, AWS
 - **External APIs / Data Sources**: 한국투자 OpenAPI, Naver News API, ECOS, FinanceDataReader, yfinance
 
-## 실행 방법
-
-프로젝트는 외부 API 키, AWS 리소스, 데이터베이스 설정에 의존하는 부분이 있습니다.  
-실행 전에는 환경 변수와 접근 정보를 먼저 준비해야 합니다.
-
-### Backend
-
-```bash
-cd NewbStock_Server
-pip install -r requirements.txt
-python manage.py runserver
-```
-
-### Frontend
-
-```bash
-cd NewbStock_Web/newbstock_front
-npm install
-npm run dev
-```
-
 ### Data Pipeline
 
 - `NewbStock_kafka/`: producer / consumer 및 Kafka 실행 구성
